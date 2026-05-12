@@ -3,7 +3,9 @@ import json
 import os
 from datetime import datetime
 
-FILE_NAME = 'task.json'
+# Lấy thư mục gốc chứa file main.py
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE_NAME = os.path.join(BASE_DIR, 'task.json')
 
 # --- HÀM XỬ LÝ FILE ---
 def load_tasks():
