@@ -71,6 +71,11 @@ class TaskTracker:
         else:
             print(f"Task not found (ID: {task_id})")
 
+    def clear_tasks(self):
+        self.tasks = []
+        self.save_tasks()
+        print("All tasks have been cleared successfully.")
+
     def change_status(self, task_id, new_status):
         index = self._find_task_index(task_id)
         if index != -1:
@@ -124,6 +129,9 @@ def main():
     parser_list = subparsers.add_parser("list", help="Hiển thị danh sách các task")
     parser_list.add_argument("status", nargs="?", choices=["done", "todo", "in-progress"], help="Lọc task theo trạng thái (tuỳ chọn)")
 
+    # Clear command
+    parser_clear = subparsers.add_parser("clear", help="Xóa toàn bộ các task hiện có")
+
     args = parser.parse_args()
 
     # Nếu không nhập lệnh nào, hiển thị help
@@ -146,6 +154,8 @@ def main():
             tracker.change_status(args.id, "done")
         elif args.command == "list":
             tracker.list_tasks(args.status)
+        elif args.command == "clear":
+            tracker.clear_tasks()
     except Exception as e:
         print(f"Đã xảy ra lỗi: {e}")
 
